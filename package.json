@@ -1,0 +1,53 @@
+{
+  "name": "gilded-rose-approval-mutation-testing",
+  "version": "1.0.0",
+  "description": "Gilded rose with approval and mutation tests",
+  "main": "src/index.ts",
+  "scripts": {
+    "approval:refresh": "rm src/approval-test.approved.txt",
+    "approval:validate": "cat src/approval-test.received.txt > src/approval-test.approved.txt",
+    "build": "tsc",
+    "coverage": "npm test -- --coverage --no-cache --detectOpenHandles",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "delete:tmp": "rm -rf .stryker-tmp",
+    "install:radical": "rm -rf node_modules/ && npm i",
+    "lint": "npx eslint '*/**/*.{js,ts}'",
+    "start": "node dist/index.js",
+    "stryker:init": "npx stryker init",
+    "stryker:run:fresh": "rm -rf .stryker-tmp && rm -rf reports && npx stryker run",
+    "stryker:run": "npx stryker run",
+    "test": "jest --detectOpenHandles --runInBand"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "approvals": "^6.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.0",
+    "@stryker-mutator/api": "^5.6.1",
+    "@stryker-mutator/core": "^5.6.1",
+    "@stryker-mutator/html-reporter": "^3.1.0",
+    "@stryker-mutator/jest-runner": "^5.6.1",
+    "@stryker-mutator/typescript": "^4.0.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.25",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "stryker": "^0.35.1",
+    "stryker-cli": "^1.0.2",
+    "stryker-jest-runner": "^1.4.1",
+    "stryker-typescript": "^0.18.1",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.4.4"
+  }
+}
