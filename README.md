@@ -1,6 +1,6 @@
 # Prérequis
 
-Se mettre sur une version 16+ de Node.js. l'Usage de NVM est recommandé pour jonglé entre versions.
+Se mettre sur une version 16+ de Node.js. l'Usage de NVM est recommandé pour jongler entre versions.
 
 Par la suite, installer en mode global la librairie `approvals` pour pouvoir jouer les tests de caractérisation :
 
@@ -32,12 +32,12 @@ Une fois vos tests de caractérisation écrits dans le fichier `./src/approval-t
 
 </center>
 
-Cette commande lancera le runner Jest qui vous fera une première exécution des 'approvals tests', vous devez voir deux fichiers s'ajouter sur votre dossier `src`:
+Cette commande lancera le test-runner Jest qui vous fera une première exécution des 'approvals tests', vous devez voir deux fichiers s'ajouter sur votre dossier `./src`:
 
 - `approval-test.approved.txt`: vide pour le moment;
 - `approval-test.received.txt`: contenant des lignes dans la structure suivante: `['Sulfuras, Hand of Ragnaros'], -15, 20`;
 
-Vous avez juste exécuter vos tests de caractérisation, mais ils sont en état "rouge" ou "failed".
+Vous venez juste exécuter vos tests de caractérisation, mais ils sont en état "rouge" ou "failed".
 
 En réalité, les tests de caractérisation se valident lorsque les fichier `approved.txt` et `received.txt` partagent le même contenu.
 
@@ -50,18 +50,18 @@ Si vous estimer que votre Golden Master passe, vous pouvez valider vos tests de 
 - ```npm run approve:test```
 - Voire tout simplement copier le contenu du `received.txt` dans le `approved.txt`
 
-Ensuite, rejouer le test runner avec:
+Ensuite, rejouer le test-runner avec:
 
 <center>
 
 ```npm run test```
 
 </center>
-Cette fois, votre test approval est vert, et, remarquez, votre fichier `received.txt` a été eradiqué.
+Cette fois, votre approval test est vert, et, remarquez, votre fichier `received.txt` a été eradiqué !
 
 Par contre le fichier `approved.txt` reste, c'est votre benchmark.
 
-Si vous estimez que ce benchmark est améliorable, vous pouvez refaire vos tests, mais il faudra effacer le benchmark et en générer un nouveau.
+Si vous estimez que ce benchmark est améliorable, vous pouvez refaire vos tests, mais il faudra effacer le benchmark et en regénérer un nouveau.
 
 Vous pouvez le faire avec:
 
@@ -75,7 +75,7 @@ Voilà, ce petit cycle se répétera autant qu'il faut pour cerner le comporteme
 
 ## Test de mutation
 
-Vous avez votre Golden Master ? Excellent mais perfectible.
+Vous avez votre Golden Master ? Excellent mais perfectible !
 
 On peut améliorer nos tests en jouant des mutations et voir si nos tests sont capables de les attraper.
 
@@ -88,9 +88,9 @@ Vous aurez besoin d'un peu de temps (1min-3min), `Sryker` est en train de géné
 
 Vous verrez déjà se créer un dossier `.stryker-tmp`, ce dossier contiendra une sandbox suivit d'un numéro.
 
-En effet, pour chaque execution de ```npm run stryker:run```, vous allez avoir une nouvelle sandbox. (vérifier)
+En effet, pour chaque execution de ```npm run stryker:run```, vous allez avoir une nouvelle sandbox (vérifier).
 
-Et surtout, vous avez sur la racine de votre projet un dossier ```reports``` avec à l'intérieur un fichier `./reports/mutation/html/index.html`.
+Et surtout, vous avez sur la racine de votre projet un dossier ```./reports``` avec à l'intérieur un fichier `./reports/mutation/html/index.html`.
 
 Si vous l'ouvrez, vous pouvez avoir un compte-rendu des mutations qui survivent vos tests.
 
