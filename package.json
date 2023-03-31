@@ -4,6 +4,7 @@
   "description": "Gilded rose with approval and mutation tests",
   "main": "src/index.ts",
   "scripts": {
+    "auto": "npm",
     "approval:refresh": "rm src/approval-test.approved.txt",
     "approval:validate": "cat src/approval-test.received.txt > src/approval-test.approved.txt",
     "build": "tsc",

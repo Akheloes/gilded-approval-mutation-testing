@@ -2,38 +2,43 @@ import { verify } from 'approvals'
 import { Item, GildedRose } from './gilded-rose'
 
 
-describe('Gilded Rose', () => {
-  it('Should have a golden master output', () => {
-    // @TODO: replace with a verifyCombinationAll-like method.
-    const items: Item[] = [
-      new Item('foo', 0, 0),
-      new Item('foo', -9, 10),
-      new Item('foo', 0, 51),
-      new Item('foo', 4, 48),
-      new Item('Aged Brie', 2, 0),
-      new Item('Aged Brie', 2, 40),
-      new Item('Aged Brie', 12, 0),
-      new Item('Sulfuras, Hand of Ragnaros', 0, 80),
-      new Item('Sulfuras, Hand of Ragnaros', -15, 20),
-      new Item('Sulfuras, Hand of Ragnaros', 15, 20),
-      new Item('Sulfuras, Hand of Ragnaros', 5, 20),
-      new Item('Sulfuras, Hand of Ragnaros', 5, 49),
-      new Item('Sulfuras, Hand of Ragnaros', 10, 20),
-      new Item('Sulfuras, Hand of Ragnaros', 10, 49),
-      new Item('Backstage passes to a TAFKAL80ETC concert', -15, 20),
-      new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
-      new Item('Backstage passes to a TAFKAL80ETC concert', 5, 20),
-      new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
-      new Item('Backstage passes to a TAFKAL80ETC concert', 10, 20),
-      new Item('Backstage passes to a TAFKAL80ETC concert', 10, 49)
-    ]
+class GildedTestHelper {
+  static itemNames = ['foo', 'Aged Brie', 'Sulfuras, Hand of Ragnaros', 'Backstage passes to a TAFKAL80ETC concert']
+  static itemGenerator = (name: string, sellIn: number, quality: number) => new Item(name, sellIn, quality)
+  static arrayToString = (array: Array<Item>) => array.map((item: Item) => `['${item.name}'], ${item.sellIn}, ${item.quality}`).join('\n')
+  static caseGenerator = (
+    lowerBoundSellIn: number,
+    upperBoundSellIn: number,
+    lowerBoundQuality: number,
+    upperBoundQuality: number,
+    step: number = 1
+  ) => {
+    const itemsArray: Item[] = []
 
+    for (let s = lowerBoundSellIn; s < upperBoundSellIn; s += step) {
+      for (let q = lowerBoundQuality; q < upperBoundQuality; q += step) {
+        for (let n = 0; n < GildedTestHelper.itemNames.length; n++) {
+          itemsArray.push(GildedTestHelper.itemGenerator(GildedTestHelper.itemNames[n], s, q))
+        }
+      }
+    }
+
+    return itemsArray
+  }
+}
+
+describe('Gilded Rose', () => {
+  it('Should be able to construct a Gilded rose shop without an item list.', () => {
+    const gildedRose = new GildedRose()
+    expect(gildedRose).toBeDefined()
+  })
+
+  it('Should verify an approval test output.', () => {
+    const items: Item[] = GildedTestHelper.caseGenerator(-1, 16, 0, 51, 1)
     const gildedRose = new GildedRose(items)
 
     gildedRose.updateQuality()
 
-    const arrayToString = (array: Array<Item>) => array.map((item: Item) => `['${item.name}'], ${item.sellIn}, ${item.quality}`).join('\n')
-
-    verify(__dirname, 'approval-test', arrayToString(items))
+    verify(__dirname, 'approval-test', GildedTestHelper.arrayToString(items))
   })
 })

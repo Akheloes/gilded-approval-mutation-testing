@@ -13,4 +13,5 @@ module.exports = {
     jest: {
         configFile: 'jest.config.ts',
     },
+    timeoutMS: 100000,
 }
